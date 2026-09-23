@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
+
+//untuk middleware didaftarkan di bootstrap\app.php
 class CheckRole
 {
     /**
@@ -17,13 +19,13 @@ class CheckRole
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
        if (!Auth::check()) {
-        return redirect('/sesi'); 
+        return redirect('/sesi');   //jika belum login maka akan diarahkan ke halaman login
     }
 
 
     if (!in_array(Auth::user()->role, $roles)) {
 
-        abort(403, 'Anda tidak memiliki akses ke halaman tersebut.');
+        abort(403, 'Anda tidak memiliki akses ke halaman tersebut.');   //mengecek role yang sedang aktif apakah user atau admin untuk membatasi hak akses
         //return redirect('/sesi')
             //->withErrors('Anda tidak memiliki akses ke halaman tersebut.');
     }

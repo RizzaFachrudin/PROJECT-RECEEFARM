@@ -24,7 +24,8 @@
             melangkah maju, dan memberikan yang terbaik.
         </p>
 
-        <a href="{{ route('auth') }}" class="btn-masuk">Masuk</a>
+        <a href="/sesi" class="btn-masuk">Masuk</a>
+
     </div>
 
 </div>

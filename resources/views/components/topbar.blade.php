@@ -1,30 +1,51 @@
 
-<img src="{{ Auth::user()->photo 
-    ? asset('storage/' . Auth::user()->photo) 
-    : asset('img/default-user.png') }}">
-
-
 <div class="topbar">
     <div class="topbar-left">
-        <h4>Selamat datang di Reece farm {{ Auth::user()->name }}</h4>
+        <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+        
     </div>
 
     <div class="topbar-right">
-        <button class="icon-btn">
+        <a href="{{ route('profile.index') }}" class="icon-btn" title="Profile Settings">
             <i class="fa-solid fa-gear"></i>
-        </button>
+        </a>
 
         <div class="user-info">
-            <img src="/img/user.png" alt="User">
+            <img src="{{ Auth::user()->photo 
+                ? asset('storage/' . Auth::user()->photo) 
+                : asset('img/default-user.png') }}" 
+                 alt="{{ Auth::user()->name }}">
 
-            <div>
+            <div class="user-details">
                 <span class="name">
                     {{ Auth::user()->name }}
                 </span>
-                <small class="role">
+                <span class="role">
                     {{ ucfirst(Auth::user()->role) }}
-                </small>
+                </span>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('active');
+}
+
+// Close sidebar when clicking outside on mobile
+document.addEventListener('click', function(event) {
+    const sidebar = document.querySelector('.sidebar');
+    const toggle = document.querySelector('.mobile-menu-toggle');
+    
+    if (window.innerWidth <= 768 && 
+        !sidebar.contains(event.target) && 
+        !toggle.contains(event.target) &&
+        sidebar.classList.contains('active')) {
+        sidebar.classList.remove('active');
+    }
+});
+</script>
